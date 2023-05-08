@@ -1,35 +1,39 @@
-import sequential.*;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class Main {
   public static void main(String[] args) {
-    Queue<Integer> q = new ArrayQueue<>();
+    f(4, 4);
+  }
 
-    for (int i = 0; i < 9; i++) {
-      q.add(i);
-      System.out.println(q);
-      q.peek();
-    }
-    // iterate over elements and logo
+  public static void f(int n, int m) {
+    Stack<Integer> s = new Stack<>();
+    Queue<Integer> q = new LinkedList<>();
 
-    try {
-      q.add(9);
-    } catch (Error e) {
-      System.out.println("Queue is full");
-    }
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
 
-    for (int i = 0; i < 9; i++) {
-      q.poll();
-      if (i != 8) {
-        q.peek();
+        if (i + j % 2 == 0) {
+          s.add(i + j);
+          q.add(s.peek());
+          // System.out.println(s);
+          // System.out.println(q);
+        }
+        if (i * 2 + j % 3 == 0) {
+          int t = q.peek();
+          q.add(s.pop());
+          s.add(t);
+          q.poll();
+          // System.out.println(s);
+          // System.out.println(q);
+        }
       }
-      System.out.println(q);
     }
 
-    System.out.println("Queue is empty: " + q.empty());
-    q.add(0);
-    System.out.println(q.peek());
-    System.out.println("Queue is empty: " + q.empty());
-
-    // System.out.println(q);
+    // // print size of s and q
+    System.out.println(s.size() + " " + q.size());
+    System.out.println(s);
+    System.out.println(q);
   }
 }
